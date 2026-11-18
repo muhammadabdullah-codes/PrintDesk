@@ -38,6 +38,9 @@ summary{font-size:14px;font-weight:700;cursor:pointer;padding:3px 0;user-select:
 @media(min-width:700px){main{grid-template-columns:1fr 1fr;align-items:start}.editor,.settings,.preview,.action-card{grid-column:auto}.preview,.action-card{grid-column:1/-1}.paper{width:65%;min-width:300px}}
 @media print{header,main{display:none!important}}
 </style>
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#17345b">
+<link rel="apple-touch-icon" href="./icons/icon-192.png">
 </head>
 <body>
 <header><div class="brand">PrintDesk</div><div class="tag">Paste text · Check preview · Print</div></header>
@@ -124,10 +127,7 @@ summary{font-size:14px;font-weight:700;cursor:pointer;padding:3px 0;user-select:
    if(!text.value.trim()){status.textContent='Please paste or type text first.';text.focus();return;}
    const size=$('size').value,orientation=$('orientation').value,margin=marginMm[$('margin').value],align=$('alignment').value,spacing=$('spacing').value,fontSize=$('fontSize').value;
    const pageSize=`${cssPageNames[size]} ${orientation}`;
-   const html=`<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PrintDesk document</title><style>@page{size:${pageSize};margin:${margin}mm}*{box-sizing:border-box}html,body{margin:0;padding:0;color:#000;background:#fff}body{font-family:Arial,"Noto Naskh Arabic","Noto Nastaliq Urdu",sans-serif;font-size:${fontSize}pt;line-height:${spacing}}.doc{white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal;text-align:${align};direction:auto;unicode-bidi:plaintext}</style>  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#17345b">
-  <link rel="apple-touch-icon" href="icons/icon-192.png">
-</head><body><main class="doc">${escapeHtml(text.value)}</main><script>window.addEventListener('load',()=>setTimeout(()=>window.print(),250));<\/script></body></html>`;
+   const html=`<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PrintDesk document</title><style>@page{size:${pageSize};margin:${margin}mm}*{box-sizing:border-box}html,body{margin:0;padding:0;color:#000;background:#fff}body{font-family:Arial,"Noto Naskh Arabic","Noto Nastaliq Urdu",sans-serif;font-size:${fontSize}pt;line-height:${spacing}}.doc{white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal;text-align:${align};direction:auto;unicode-bidi:plaintext}</style></head><body><main class="doc">${escapeHtml(text.value)}</main><script>window.addEventListener('load',()=>setTimeout(()=>window.print(),250));<\/script></body></html>`;
    let win;
    try{win=window.open('','_blank');}catch(e){}
    if(!win){status.textContent='Pop-up blocked. Allow pop-ups for PrintDesk, then try again.';return;}
